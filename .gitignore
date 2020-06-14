@@ -1,14 +1,6 @@
 temporaryDashboardText.txt
 
 /target/
-/hotbits/
-/cases/
-/data/
-/config/
-/images/
-/gui//node_modules
-/go/bin/
-/go/*.exe
 *.log
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -35,6 +27,3 @@ temporaryDashboardText.txt
 /dist/
 /nbdist/
 /.nb-gradle/
-
-### Angular Distilled Folder ###
-/src/main/resources/static/
