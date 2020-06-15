@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import isuret.polos.aether.domains.HotBitIntegers;
 import isuret.polos.aether.domains.Settings;
 
 import java.io.File;
@@ -43,8 +44,17 @@ public class Database {
         return new File(rootFolder.getAbsolutePath() + File.separator + "database" + File.separator + relativeFilePath);
     }
 
+    public HotBitIntegers getHotBitPackage() {
+
+        return null;
+    }
+
     public void saveSettings(Settings settings) throws IOException {
-        writer.writeValue(getFile("settings/settings.json"), settings);
+        save("settings/settings.json", settings);
+    }
+
+    public void save(String filePath, Object object) throws IOException {
+        writer.writeValue(getFile(filePath), object);
     }
 
     /**
@@ -52,12 +62,12 @@ public class Database {
      */
     private void init() {
         initObjectMapper();
-        initFolder("database/settings");
-        initFolder("database/hotbits");
-        initFolder("database/cases");
-        initFolder("database/queue");
-        initFolder("database/rates");
-        initFolder("database/images/layers");
+        initFolder("settings");
+        initFolder("hotbits");
+        initFolder("cases");
+        initFolder("queue");
+        initFolder("rates");
+        initFolder("images/layers");
     }
 
     private void initObjectMapper() {
@@ -75,10 +85,11 @@ public class Database {
      */
     private void initFolder(String folderPath) {
 
-        File folder = new File(rootFolder.getAbsolutePath() + File.separator + folderPath);
+        File folder = new File(rootFolder.getAbsolutePath() + "database" + File.separator + folderPath);
 
         if (folder.exists()) return;
 
         folder.mkdirs();
     }
+
 }
