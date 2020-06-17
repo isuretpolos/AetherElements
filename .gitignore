@@ -1,6 +1,6 @@
 temporaryDashboardText.txt
 
-/target/
+target/
 *.log
 !.mvn/wrapper/maven-wrapper.jar
 
