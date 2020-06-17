@@ -18,14 +18,23 @@ public class HotbitsHandler {
 
     private synchronized void loadHotbitsFromHarddisk() throws IOException {
 
-        if (hotbits.size() > 4000000) return;
+        if (hotbits.size() > 10000) return;
 
         HotBitIntegers integers = database.getHotBitPackage();
 
         for (Integer number : integers.getIntegerList()) {
             hotbits.add(number);
         }
+    }
 
-        if (hotbits.size() > 40000) return;
+    public Integer nextInteger() {
+
+        try {
+            loadHotbitsFromHarddisk();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 }
