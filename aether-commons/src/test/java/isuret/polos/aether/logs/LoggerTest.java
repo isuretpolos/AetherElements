@@ -15,6 +15,8 @@ public class LoggerTest {
 
         for (int x=0; x< 110; x++) {
             logger.info("TEST " + x);
+            logger.warning("WARNING " + x);
+            logger.error("ERROR " + x);
         }
 
         testLoggerContent();
@@ -26,7 +28,7 @@ public class LoggerTest {
 
         for (String str : LoggerSingleton.getInstance().getMessages()) {
             Assert.assertNotNull(str);
-            System.out.println(str);
+            Assert.assertTrue(str.length() > 10);
         }
     }
 }

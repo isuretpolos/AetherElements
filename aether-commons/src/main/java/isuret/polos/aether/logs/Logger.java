@@ -12,8 +12,15 @@ public class Logger {
     }
 
     public void info(String message) {
-
         addMessage(message, "INFO");
+    }
+
+    public void warning(String message) {
+        addMessage(message, "WARN");
+    }
+
+    public void error(String message) {
+        addMessage(message, "ERROR");
     }
 
     private String getDateTimeString() {
