@@ -44,7 +44,17 @@ public class Database {
         return new File(rootFolder.getAbsolutePath() + File.separator + "database" + File.separator + relativeFilePath);
     }
 
-    public HotBitIntegers getHotBitPackage() {
+    public HotBitIntegers getHotBitPackage() throws IOException {
+
+        File hotbitsDirectory = getFile("hotbits");
+
+        for (File file : hotbitsDirectory.listFiles()) {
+            if (file.isFile() && file.getName().startsWith("hotbits") && file.getName().endsWith("json")) {
+                HotBitIntegers hotBitIntegers = mapper.readValue(file, HotBitIntegers.class);
+                file.delete();
+                return hotBitIntegers;
+            }
+        }
 
         return null;
     }
@@ -85,7 +95,7 @@ public class Database {
      */
     private void initFolder(String folderPath) {
 
-        File folder = new File(rootFolder.getAbsolutePath() + "database" + File.separator + folderPath);
+        File folder = new File(rootFolder.getAbsolutePath() + File.separator + "database" + File.separator + folderPath);
 
         if (folder.exists()) return;
 
