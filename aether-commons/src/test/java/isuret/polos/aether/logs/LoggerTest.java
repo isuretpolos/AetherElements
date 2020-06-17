@@ -9,9 +9,6 @@ public class LoggerTest {
 
     @Test
     public void test() {
-        logger.info("TEST");
-
-        testLoggerContent();
 
         for (int x=0; x< 110; x++) {
             logger.info("TEST " + x);

@@ -3,6 +3,10 @@ package isuret.polos.aether.logs;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+/**
+ * Why use a self written logger?
+ * Because I can!
+ */
 public class Logger {
 
     private String className;
