@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import isuret.polos.aether.domains.HotBitIntegers;
 import isuret.polos.aether.domains.Settings;
+import isuret.polos.aether.logs.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class Database {
     private ObjectMapper mapper;
     private ObjectWriter writer;
     private File rootFolder;
+    private Logger logger = new Logger(Database.class);
 
     public Database(File rootFolder) {
         this.rootFolder = rootFolder;
@@ -65,6 +67,7 @@ public class Database {
 
     public void save(String filePath, Object object) throws IOException {
         writer.writeValue(getFile(filePath), object);
+        logger.info("Object " + object.getClass().getSimpleName() + " saved!");
     }
 
     /**

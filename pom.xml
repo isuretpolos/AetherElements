@@ -16,5 +16,6 @@
 
     <modules>
         <module>aether-commons</module>
+        <module>aether-shell</module>
     </modules>
 </project>
