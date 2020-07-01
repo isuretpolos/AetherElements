@@ -29,3 +29,4 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
+/database/
