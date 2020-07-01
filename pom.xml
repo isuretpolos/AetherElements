@@ -5,11 +5,12 @@
     <packaging>pom</packaging>
     <groupId>isuret.polos</groupId>
     <artifactId>AetherElements</artifactId>
-    <version>1.1.0</version>
+    <version>${aether.version}</version>
     <name>AetherElements</name>
     <description>Open Source Radionics</description>
 
     <properties>
+        <aether.version>1.0.0</aether.version>
         <java.version>1.8</java.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     </properties>

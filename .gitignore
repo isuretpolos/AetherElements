@@ -1,6 +1,6 @@
 temporaryDashboardText.txt
 
-target/
+**/target/
 *.log
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -27,3 +27,5 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
+/aether-commons/target/
+/**/target/
