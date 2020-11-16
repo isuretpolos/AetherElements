@@ -2,6 +2,7 @@ package isuret.polos.aether.analysis;
 
 import isuret.polos.aether.database.Database;
 import isuret.polos.aether.trng.HotbitsHandler;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,6 +15,11 @@ public class AnalysisServiceTest {
     @Before
     public void init() {
         analysisService = new AnalysisService(new HotbitsHandler(new Database(new File("target/"))));
+    }
+
+    @After
+    public void shutDown() {
+        analysisService.shutDown();
     }
 
     /**

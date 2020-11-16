@@ -28,4 +28,10 @@ public class AnalysisService {
 
         return gv;
     }
+
+
+
+    public void shutDown() {
+        hotbitsHandler.shutDown();
+    }
 }

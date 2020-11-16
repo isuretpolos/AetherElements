@@ -27,6 +27,10 @@ public class HotbitsHandler {
         secureRandom.setSeed(Calendar.getInstance().getTimeInMillis());
     }
 
+    public void shutDown() {
+        database.shutDown();
+    }
+
     /**
      * This is called whenever you try to get a random value (it refills its pool of randomness)
      * @throws IOException

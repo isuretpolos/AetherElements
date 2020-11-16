@@ -2,7 +2,9 @@ package isuret.polos.aether.database;
 
 import isuret.polos.aether.domains.HotBitIntegers;
 import isuret.polos.aether.domains.Settings;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -10,7 +12,17 @@ import java.io.IOException;
 
 public class DatabaseTest {
 
-    private Database database = new Database(new File("target/"));
+    private Database database;
+
+    @Before
+    public void init() {
+        database = new Database(new File("target/"));
+    }
+
+    @After
+    public void shutDown() {
+        database.shutDown();
+    }
 
     @Test
     public void testBasics() throws IOException {

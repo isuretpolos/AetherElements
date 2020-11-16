@@ -7,6 +7,8 @@ import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Based on text-io from Serban Iordache
@@ -18,7 +20,7 @@ public class AetherShell {
     private AnalysisService analysisService;
     private HotbitsHandler hotbitsHandler;
 
-    public static void main(String [] args) {
+    public static void main(String[] args) {
         new AetherShell();
     }
 
@@ -36,7 +38,7 @@ public class AetherShell {
         textIO.getTextTerminal().println("=== Aether Shell v1.0 ===");
         textIO.getTextTerminal().println("-------------------------");
 
-        while(true) {
+        while (true) {
 
             AETHER_COMMANDS command = textIO.newEnumInputReader(AETHER_COMMANDS.class).read("");
             textIO.getTextTerminal().println("Your choice was " + command.name() + "\n");
@@ -58,6 +60,8 @@ public class AetherShell {
             textIO.getTextTerminal().moveToLineStart();
         }
 
+        hotbitsHandler.shutDown();
+
         System.exit(0);
     }
 
@@ -72,6 +76,34 @@ public class AetherShell {
         // choose rate list provided in database (also query through subfolders)
         // analyze based on selected rate list
         // display result
+
+        int i = 1;
+        List<String> rateList = getRatesFromPath("database/rates/");
+
+        for (String rate : rateList) {
+            textIO.getTextTerminal().println(i + " - " + rate);
+            i++;
+        }
+
+        Integer rateChoice = textIO.newIntInputReader().read("SELECT RATE LIST");
+        textIO.getTextTerminal().println("RATE SELECTED: " + rateList.get(rateChoice - 1));
+    }
+
+    private List<String> getRatesFromPath(String path) {
+
+        List<String> filenames = new ArrayList<>();
+
+        File folder = new File(path);
+
+        if (folder.exists() && folder.isDirectory()) {
+            for (File file : folder.listFiles()) {
+                if (file.isFile() && file.getName().endsWith("txt")) {
+                    filenames.add(file.getName());
+                }
+            }
+        }
+
+        return filenames;
     }
 
     private void checkGeneralVitality() {
@@ -81,9 +113,9 @@ public class AetherShell {
 
     private void grounding() {
 
-        for (int i=0; i< 120; i++) {
+        for (int i = 0; i < 120; i++) {
 
-            char c = (char)(hotbitsHandler.nextInteger(94) + '!');
+            char c = (char) (hotbitsHandler.nextInteger(94) + '!');
             textIO.getTextTerminal().print(Character.toString(c));
             delay();
         }

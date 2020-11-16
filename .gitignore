@@ -30,3 +30,5 @@ target/
 /nbdist/
 /.nb-gradle/
 /database/
+/aether-commons/aetherOneDatabase.db
+/aetherOneDatabase.db

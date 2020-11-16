@@ -9,6 +9,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import isuret.polos.aether.domains.HotBitIntegers;
 import isuret.polos.aether.domains.Settings;
 import isuret.polos.aether.logs.Logger;
+import org.dizitart.no2.Nitrite;
+import org.dizitart.no2.NitriteCollection;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,12 +27,13 @@ public class Database {
     private ObjectWriter writer;
     private File rootFolder;
     private Logger logger = new Logger(Database.class);
+    private Nitrite db;
 
     public Database(File rootFolder) {
         this.rootFolder = rootFolder;
         init();
     }
-    
+
     public Settings getSettings() throws IOException {
 
         File settingsFile = getFile(SETTINGS_JSON);
@@ -81,6 +84,18 @@ public class Database {
         initFolder("queue");
         initFolder("rates");
         initFolder("images/layers");
+
+        db = Nitrite.builder()
+                .compressed()
+                .filePath("aetherOneDatabase.db")
+                .openOrCreate("user", "password");
+
+        // Create a Nitrite Collection
+        NitriteCollection collection = db.getCollection("test");
+    }
+
+    public void shutDown() {
+        if (db != null) db.close();
     }
 
     private void initObjectMapper() {
@@ -94,6 +109,7 @@ public class Database {
 
     /**
      * If the folder or path does not exist, it will be created.
+     *
      * @param folderPath
      */
     private void initFolder(String folderPath) {
