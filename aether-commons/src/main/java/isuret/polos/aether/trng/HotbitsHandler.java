@@ -27,25 +27,12 @@ public class HotbitsHandler {
         secureRandom.setSeed(Calendar.getInstance().getTimeInMillis());
     }
 
-    public void shutDown() {
-        database.shutDown();
+    public Database getDatabase() {
+        return database;
     }
 
-    /**
-     * This is called whenever you try to get a random value (it refills its pool of randomness)
-     * @throws IOException
-     */
-    private synchronized void loadHotbitsFromHarddisk() throws IOException {
-
-        if (hotbits.size() > 10000) return;
-
-        HotBitIntegers integers = database.getHotBitPackage();
-
-        if (integers == null) return;
-
-        for (Integer number : integers.getIntegerList()) {
-            hotbits.add(number);
-        }
+    public void shutDown() {
+        database.shutDown();
     }
 
     /**
@@ -80,6 +67,23 @@ public class HotbitsHandler {
     public Boolean nextBoolean() {
 
         return getRandom().nextBoolean();
+    }
+
+    /**
+     * This is called whenever you try to get a random value (it refills its pool of randomness)
+     * @throws IOException
+     */
+    private synchronized void loadHotbitsFromHarddisk() throws IOException {
+
+        if (hotbits.size() > 10000) return;
+
+        HotBitIntegers integers = database.getHotBitPackage();
+
+        if (integers == null) return;
+
+        for (Integer number : integers.getIntegerList()) {
+            hotbits.add(number);
+        }
     }
 
     /**

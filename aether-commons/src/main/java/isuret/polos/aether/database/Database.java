@@ -7,13 +7,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import isuret.polos.aether.domains.HotBitIntegers;
+import isuret.polos.aether.domains.Rate;
 import isuret.polos.aether.domains.Settings;
 import isuret.polos.aether.logs.Logger;
+import org.apache.commons.io.FileUtils;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.NitriteCollection;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <h1>Database</h1>
@@ -43,6 +48,52 @@ public class Database {
         }
 
         return new Settings();
+    }
+
+    public List<String> getRatesFromPath(String path) {
+
+        List<String> filenames = new ArrayList<>();
+
+        File folder = new File(path);
+
+        if (folder.exists() && folder.isDirectory()) {
+            for (File file : folder.listFiles()) {
+                if (file.isFile() && file.getName().endsWith("txt")) {
+                    filenames.add(file.getName());
+                }
+            }
+        }
+
+        return filenames;
+    }
+
+    public List<Rate> getRates(String ratePathName) {
+
+        List<Rate> rateList = new ArrayList<>();
+
+        try {
+            List<String> lines = FileUtils.readLines(getFile("rates" + File.separator + ratePathName), Charset.forName("UTF-8"));
+
+            for (String line : lines) {
+                if (line.length() > 0) {
+                    Rate rate = new Rate();
+
+                    if (line.contains("\t")) {
+                        String parts[] = line.split("\t");
+                        rate.setName(parts[0].trim());
+                        rate.setUrl(parts[1].trim());
+                    } else {
+                        rate.setName(line.trim());
+                    }
+
+                    rateList.add(rate);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return rateList;
     }
 
     private File getFile(String relativeFilePath) {
