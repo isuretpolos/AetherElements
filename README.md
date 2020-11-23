@@ -1,5 +1,5 @@
 # AetherElements
-Modular Radionic Elements
+## Modular Radionic Elements
 
 ![Logo](documentation/aetherElements.jpg)
 
