@@ -10,7 +10,7 @@
     <description>Open Source Radionics</description>
 
     <properties>
-        <aether.version>1.0.0</aether.version>
+        <aether.version>1.0.1</aether.version>
         <java.version>1.8</java.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     </properties>

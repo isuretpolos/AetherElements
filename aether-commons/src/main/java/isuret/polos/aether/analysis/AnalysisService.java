@@ -101,8 +101,6 @@ public class AnalysisService {
         analysisResult.getRateList().addAll(rates.values());
         AnalysisResult sortedResult = analysisResult.sort().shorten(MAX_ENTRIES);
 
-        System.out.println(sortedResult);
-
         return sortedResult;
     }
 

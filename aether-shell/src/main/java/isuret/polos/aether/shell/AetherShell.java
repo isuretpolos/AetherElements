@@ -21,6 +21,7 @@ public class AetherShell {
     private AnalysisService analysisService;
     private HotbitsHandler hotbitsHandler;
     private Database database;
+    private AnalysisResult lastResult;
 
     public static void main(String[] args) {
         new AetherShell();
@@ -56,6 +57,9 @@ public class AetherShell {
             if (command.equals(AETHER_COMMANDS.BROADCAST)) {
                 broadcast();
             }
+            if (command.equals(AETHER_COMMANDS.CLEARING)) {
+                clearing();
+            }
             if (command.equals(AETHER_COMMANDS.GENERAL_VITALITY)) {
                 checkGeneralVitality();
             }
@@ -68,10 +72,33 @@ public class AetherShell {
         System.exit(0);
     }
 
+    private void clearing() {
+        broadcast("UV LIGHT CLEAR");
+    }
+
     private void broadcast() {
-        // TODO
-        // broadcast your choice / rate or signature
-        // select for how long or how high should the dynamic GV check be
+
+        String menuChoices = "(1) TYPE IN YOUR OWN RATE OR SIGNATURE";
+
+        if (lastResult != null) {
+            menuChoices += "\n(2) SELECT RATE FROM LAST ANALYSIS RESULT";
+        }
+
+        Integer choice = textIO.newIntInputReader().read(menuChoices);
+        String rate = "";
+
+        if (choice == 2) {
+            showResult(lastResult);
+            Integer rateChoice = textIO.newIntInputReader().read("SELECT RATE FOR BROADCASTING");
+            rate = lastResult.getRateList().get(rateChoice - 1).getName();
+        } else {
+            rate = textIO.newStringInputReader().read("TYPE IN YOUR INTENTION");
+        }
+
+        textIO.getTextTerminal().println("BROADCASTING: " + rate);
+
+        broadcast(rate);
+        // TODO select for how long or how high should the dynamic GV check be
     }
 
     private void analysis() {
@@ -90,13 +117,18 @@ public class AetherShell {
 
         AnalysisResult result = analysisService.analyze(rateListName);
 
-        for (int x=0; x<result.getRateList().size(); x++) {
+        showResult(result);
+
+        lastResult = result;
+    }
+
+    private void showResult(AnalysisResult result) {
+        for (int x = 0; x< result.getRateList().size(); x++) {
             if (x >= 10) break;
 
             Rate rate = result.getRateList().get(x);
-            textIO.getTextTerminal().println(rate.getEnergeticValue() + " - " + rate.getName());
+            textIO.getTextTerminal().println("(" + (x + 1) + ")  " + rate.getEnergeticValue() + " - " + rate.getName());
         }
-
     }
 
     private void checkGeneralVitality() {
@@ -106,9 +138,23 @@ public class AetherShell {
 
     private void grounding() {
 
+        broadcast("grounding earth core root deep breath");
+    }
+
+    private void broadcast(String intention) {
+
+        intention = intention.replaceAll(" ","").trim();
+
         for (int i = 0; i < 120; i++) {
 
-            char c = (char) (hotbitsHandler.nextInteger(94) + '!');
+            char c = 0;
+
+            if (hotbitsHandler.nextInteger(100) > 50) {
+                c = intention.toCharArray()[hotbitsHandler.nextInteger(intention.length())];
+            } else {
+                c = (char) (hotbitsHandler.nextInteger(94) + '!');
+            }
+
             textIO.getTextTerminal().print(Character.toString(c));
             delay();
         }
