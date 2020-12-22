@@ -1,27 +1,31 @@
 package isuret.polos.aether.domains;
 
+import org.dizitart.no2.objects.Id;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * The session is a post in a blog
  */
 public class Session {
 
+    @Id
+    private UUID uuid = UUID.randomUUID();
+
     private Calendar created = Calendar.getInstance();
     private String intention;
     private String description;
-    private List<AnalysisResult> analysisResults = new ArrayList<>();
-    private List<Note> notes = new ArrayList<>();
-    private List<BroadCastData> broadCastDataList = new ArrayList<>();
+    private List<Paragraph> paragraphs = new ArrayList<>();
 
-    public List<BroadCastData> getBroadCastDataList() {
-        return broadCastDataList;
+    public UUID getUuid() {
+        return uuid;
     }
 
-    public void setBroadCastDataList(List<BroadCastData> broadCastDataList) {
-        this.broadCastDataList = broadCastDataList;
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 
     public String getIntention() {
@@ -48,19 +52,11 @@ public class Session {
         this.created = created;
     }
 
-    public List<AnalysisResult> getAnalysisResults() {
-        return analysisResults;
+    public List<Paragraph> getParagraphs() {
+        return paragraphs;
     }
 
-    public void setAnalysisResults(List<AnalysisResult> analysisResults) {
-        this.analysisResults = analysisResults;
-    }
-
-    public List<Note> getNotes() {
-        return notes;
-    }
-
-    public void setNotes(List<Note> notes) {
-        this.notes = notes;
+    public void setParagraphs(List<Paragraph> paragraphs) {
+        this.paragraphs = paragraphs;
     }
 }

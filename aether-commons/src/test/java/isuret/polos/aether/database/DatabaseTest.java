@@ -83,7 +83,11 @@ public class DatabaseTest {
         AnalysisResult result = analysisService.analyze("HOMEOPATHY_Clarke_With_MateriaMedicaUrls.txt");
         System.out.println(result);
 
-        session.getAnalysisResults().add(result);
+        Note note = new Note();
+        note.setText("This is a test note");
+        session.getParagraphs().add(new Paragraph(note));
+        session.getParagraphs().add(new Paragraph(result));
+        myCase.getSessionList().add(session);
 
         database.saveCase(user, myCase);
         Case caseFromDB = database.readCase(user, myCase.getName());
@@ -96,6 +100,8 @@ public class DatabaseTest {
         database.saveCase(user, myCase);
         caseFromDB = database.readCase(user, myCase.getName());
 
-        System.out.println(caseFromDB);
+        Assert.assertNotNull(caseFromDB);
+        Assert.assertEquals(1,caseFromDB.getSessionList().size());
+        Assert.assertEquals(2,caseFromDB.getSessionList().get(0).getParagraphs().size());
     }
 }

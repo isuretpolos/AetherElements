@@ -1,6 +1,7 @@
 package isuret.polos.aether.domains;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.dizitart.no2.objects.Id;
 
 import java.util.*;
 
@@ -9,9 +10,19 @@ import java.util.*;
  */
 public class AnalysisResult {
 
+    @Id
+    private UUID uuid = UUID.randomUUID();
     private Calendar dateTime = Calendar.getInstance();
     private Integer generalVitality;
     private List<Rate> rateList = new ArrayList<>();
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
 
     public List<Rate> getRateList() {
         return rateList;
