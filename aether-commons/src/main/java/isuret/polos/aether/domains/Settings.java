@@ -3,6 +3,9 @@ package isuret.polos.aether.domains;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A map of settings
+ */
 public class Settings {
 
     private Map<String,Object> properties = new HashMap<>();

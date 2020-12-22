@@ -1,5 +1,0 @@
-package isuret.polos.aether.shell;
-
-public enum AETHER_COMMANDS {
-    GROUNDING,GENERAL_VITALITY,ANALYSIS,BROADCAST,CLEARING,EXIT
-}

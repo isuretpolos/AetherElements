@@ -1,7 +1,9 @@
 package isuret.polos.aether.database;
 
-import isuret.polos.aether.domains.HotBitIntegers;
-import isuret.polos.aether.domains.Settings;
+import isuret.polos.aether.analysis.AnalysisService;
+import isuret.polos.aether.domains.*;
+import isuret.polos.aether.trng.HotbitsHandler;
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,14 +11,17 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 
 public class DatabaseTest {
 
     private Database database;
 
     @Before
-    public void init() {
+    public void init() throws IOException {
         database = new Database(new File("target/"));
+        FileUtils.copyFile(new File("src/test/resources/HOMEOPATHY_Clarke_With_MateriaMedicaUrls.txt"),
+                new File("target/database/rates/HOMEOPATHY_Clarke_With_MateriaMedicaUrls.txt"));
     }
 
     @After
@@ -57,4 +62,40 @@ public class DatabaseTest {
         Assert.assertNotNull(hotBitIntegers);
     }
 
+    @Test
+    public void testSessionCRUD() {
+
+        User user = new User();
+        user.setUsername("John The Tester");
+        user.setPassword("12345");
+
+        AnalysisService analysisService = new AnalysisService(new HotbitsHandler(database));
+
+        Case myCase = new Case();
+        myCase.setName("Test area Nevada");
+        myCase.setDescription("A test");
+        myCase.setLastChange(Calendar.getInstance());
+
+        Session session = new Session();
+        session.setIntention("Analyse the energy");
+
+        Integer gv = analysisService.checkGeneralVitality();
+        AnalysisResult result = analysisService.analyze("HOMEOPATHY_Clarke_With_MateriaMedicaUrls.txt");
+        System.out.println(result);
+
+        session.getAnalysisResults().add(result);
+
+        database.saveCase(user, myCase);
+        Case caseFromDB = database.readCase(user, myCase.getName());
+
+        System.out.println(caseFromDB);
+
+        user.setUsername("Another John");
+        user.setPassword("987654321");
+
+        database.saveCase(user, myCase);
+        caseFromDB = database.readCase(user, myCase.getName());
+
+        System.out.println(caseFromDB);
+    }
 }

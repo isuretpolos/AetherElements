@@ -6,24 +6,29 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import isuret.polos.aether.domains.Case;
 import isuret.polos.aether.domains.HotBitIntegers;
 import isuret.polos.aether.domains.Rate;
 import isuret.polos.aether.domains.Settings;
 import isuret.polos.aether.logs.Logger;
 import org.apache.commons.io.FileUtils;
 import org.dizitart.no2.Nitrite;
-import org.dizitart.no2.NitriteCollection;
+import org.dizitart.no2.NitriteBuilder;
+import org.dizitart.no2.objects.filters.ObjectFilters;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <h1>Database</h1>
  * <p>A "keep-it-simple" database, using json and textfiles, as also csv, for storing data.</p>
  * <p>The data is stored in a folder hierarchie for categorizing elements and better reading.</p>
+ * <p>Typical session related data is stored inside Nitrite, which can be exported to files if needed.</p>
  */
 public class Database {
 
@@ -32,7 +37,7 @@ public class Database {
     private ObjectWriter writer;
     private File rootFolder;
     private Logger logger = new Logger(Database.class);
-    private Nitrite db;
+    private Map<String,Nitrite> databases = new HashMap<>();
 
     public Database(File rootFolder) {
         this.rootFolder = rootFolder;
@@ -124,6 +129,21 @@ public class Database {
         logger.info("Object " + object.getClass().getSimpleName() + " saved!");
     }
 
+    public Case readCase(User user, String caseName) {
+        Nitrite db = getDatabase(user);
+        return db.getRepository(Case.class).find(ObjectFilters.eq("name",caseName)).firstOrDefault();
+    }
+
+    public void saveCase(User user, Case caseObject) {
+        Nitrite db = getDatabase(user);
+
+        if (readCase(user, caseObject.getName()) != null) {
+            db.getRepository(Case.class).update(caseObject);
+        } else {
+            db.getRepository(Case.class).insert(caseObject);
+        }
+    }
+
     /**
      * Initialize the database, making sure everything necessary is available.
      */
@@ -135,18 +155,31 @@ public class Database {
         initFolder("queue");
         initFolder("rates");
         initFolder("images/layers");
+    }
 
-        db = Nitrite.builder()
+    private Nitrite getDatabase(User user) {
+
+        if (databases.get(user.getUsername()) == null) {
+
+            // Create a db
+            Nitrite db = getNitriteBuilder(user)
+                    .openOrCreate(user.getUsername(), user.getPassword());
+            databases.put(user.getUsername(), db);
+        }
+
+        return databases.get(user.getUsername());
+    }
+
+    private NitriteBuilder getNitriteBuilder(User user) {
+        return Nitrite.builder()
                 .compressed()
-                .filePath("aetherOneDatabase.db")
-                .openOrCreate("user", "password");
-
-        // Create a Nitrite Collection
-        NitriteCollection collection = db.getCollection("test");
+                .filePath(rootFolder.getPath() + "/" + user.getUsername().replaceAll(" ","").trim() + "_aetherOneDatabase.db");
     }
 
     public void shutDown() {
-        if (db != null) db.close();
+        for (Nitrite db : databases.values()) {
+            db.close();
+        }
     }
 
     private void initObjectMapper() {

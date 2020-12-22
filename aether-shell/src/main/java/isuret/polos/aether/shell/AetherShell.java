@@ -2,6 +2,7 @@ package isuret.polos.aether.shell;
 
 import isuret.polos.aether.analysis.AnalysisService;
 import isuret.polos.aether.database.Database;
+import isuret.polos.aether.domains.AETHER_COMMANDS;
 import isuret.polos.aether.domains.AnalysisResult;
 import isuret.polos.aether.domains.Rate;
 import isuret.polos.aether.trng.HotbitsHandler;

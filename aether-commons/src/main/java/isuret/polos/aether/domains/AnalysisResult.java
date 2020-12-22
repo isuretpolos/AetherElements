@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.*;
 
+/**
+ * The radionics analysis result
+ */
 public class AnalysisResult {
 
     private Calendar dateTime = Calendar.getInstance();
