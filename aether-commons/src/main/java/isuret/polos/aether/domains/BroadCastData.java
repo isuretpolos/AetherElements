@@ -1,10 +1,18 @@
 package isuret.polos.aether.domains;
 
+import org.dizitart.no2.objects.Id;
+
+import java.util.Calendar;
+import java.util.UUID;
+
 /**
  * Broadcast data and protocol (before and after)
  */
 public class BroadCastData {
 
+    @Id
+    private UUID uuid = UUID.randomUUID();
+    private Calendar created = Calendar.getInstance();
     private Boolean clear = false;
     private String intention;
     private String signature;
@@ -12,6 +20,22 @@ public class BroadCastData {
     private Integer repeat = 1;
     private Integer enteringWithGeneralVitality;
     private Integer leavingWithGeneralVitality;
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    public Calendar getCreated() {
+        return created;
+    }
+
+    public void setCreated(Calendar created) {
+        this.created = created;
+    }
 
     public Boolean getClear() {
         return clear;

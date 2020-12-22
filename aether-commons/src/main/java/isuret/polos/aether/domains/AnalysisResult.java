@@ -12,7 +12,7 @@ public class AnalysisResult {
 
     @Id
     private UUID uuid = UUID.randomUUID();
-    private Calendar dateTime = Calendar.getInstance();
+    private Calendar created = Calendar.getInstance();
     private Integer generalVitality;
     private List<Rate> rateList = new ArrayList<>();
 
@@ -28,8 +28,16 @@ public class AnalysisResult {
         return rateList;
     }
 
-    public Calendar getDateTime() {
-        return dateTime;
+    public Calendar getCreated() {
+        return created;
+    }
+
+    public void setCreated(Calendar created) {
+        this.created = created;
+    }
+
+    public void setRateList(List<Rate> rateList) {
+        this.rateList = rateList;
     }
 
     public Integer getGeneralVitality() {
@@ -69,7 +77,7 @@ public class AnalysisResult {
     @Override
     public String toString() {
         return "AnalysisResult{" +
-                "dateTime=" + dateTime +
+                "dateTime=" + created +
                 ", generalVitality=" + generalVitality +
                 ", rateList=" + rateList +
                 '}';

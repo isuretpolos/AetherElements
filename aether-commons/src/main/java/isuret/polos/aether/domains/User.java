@@ -1,4 +1,4 @@
-package isuret.polos.aether.database;
+package isuret.polos.aether.domains;
 
 public class User {
 
