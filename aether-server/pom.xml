@@ -14,6 +14,10 @@
     <name>aether-server</name>
     <description>AetherOne Server</description>
 
+    <properties>
+        <aether.version>1.0.1</aether.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -21,9 +25,21 @@
         </dependency>
 
         <dependency>
+            <groupId>isuret.polos</groupId>
+            <artifactId>aether-commons</artifactId>
+            <version>${aether.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>isuret.polos</groupId>
+            <artifactId>aether-commons</artifactId>
+            <version>1.0.1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

@@ -48,6 +48,14 @@ public class Case {
         created = Calendar.getInstance();
     }
 
+    public Case makeShallowCopy() {
+        Case copy = new Case();
+        copy.setCreated(this.getCreated());
+        copy.setName(this.getName());
+        copy.setDescription(this.getDescription());
+        return copy;
+    }
+
     public UUID getUuid() {
         return uuid;
     }

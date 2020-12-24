@@ -19,5 +19,6 @@
         <module>aether-commons</module>
         <module>aether-server</module>
         <module>aether-shell</module>
+        <module>aether-radionics-photography</module>
     </modules>
 </project>

@@ -126,6 +126,11 @@ public class Database {
         logger.info("Object " + object.getClass().getSimpleName() + " saved!");
     }
 
+    public List<Case> getAllCases(User user) {
+        Nitrite db = getDatabase(user);
+        return db.getRepository(Case.class).find().toList();
+    }
+
     public Case readCase(User user, String caseName) {
         Nitrite db = getDatabase(user);
         return db.getRepository(Case.class).find(ObjectFilters.eq("name",caseName)).firstOrDefault();
