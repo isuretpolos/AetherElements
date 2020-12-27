@@ -3,6 +3,7 @@ import {FormControl} from "@angular/forms";
 import {CaseService} from "../services/case.service";
 import {User} from "../domains/User";
 import {ActivatedRoute, Router} from "@angular/router";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private caseService: CaseService,
     private router:Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cookieService:CookieService
   ) {
   }
 
@@ -33,6 +35,8 @@ export class LoginComponent implements OnInit {
 
     this.caseService.getAllCases().subscribe(c => {
       console.log(c);
+      this.cookieService.set('userName', user.username);
+      this.cookieService.set('password', user.password);
       this.navigateToLoginPage();
     })
   }

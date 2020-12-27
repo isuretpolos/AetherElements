@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {CaseService} from "./services/case.service";
+import {CookieService} from "ngx-cookie-service";
+import {User} from "./domains/User";
 
 @Component({
   selector: 'app-root',
@@ -13,11 +15,20 @@ export class AppComponent implements OnInit {
   constructor(
     private router:Router,
     private route: ActivatedRoute,
-    private caseService:CaseService
+    private caseService:CaseService,
+    private cookieService:CookieService
   ) { }
 
   ngOnInit(): void {
     console.log('init AppComponent');
+
+    if (this.cookieService.get('userName') != null) {
+      let user:User = new User();
+      user.username = this.cookieService.get('userName');
+      user.password = this.cookieService.get('password');
+      this.caseService.user = user;
+    }
+
     if (this.caseService.user == null) {
       this.navigateToLoginPage();
     }

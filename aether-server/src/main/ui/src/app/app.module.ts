@@ -8,6 +8,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import {CookieService} from "ngx-cookie-service";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import {HttpClientModule} from "@angular/common/http";
         HttpClientModule,
         FormsModule
     ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
