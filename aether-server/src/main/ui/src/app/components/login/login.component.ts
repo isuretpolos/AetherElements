@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {CaseService} from "../services/case.service";
-import {User} from "../domains/User";
+import {CaseService} from "../../services/case.service";
+import {User} from "../../domains/User";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
 

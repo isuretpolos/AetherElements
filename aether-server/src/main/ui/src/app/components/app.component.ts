@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {CaseService} from "./services/case.service";
+import {CaseService} from "../services/case.service";
 import {CookieService} from "ngx-cookie-service";
-import {User} from "./domains/User";
+import {User} from "../domains/User";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ export class AppComponent implements OnInit {
     private router:Router,
     private route: ActivatedRoute,
     private caseService:CaseService,
-    private cookieService:CookieService
+    private cookieService:CookieService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {

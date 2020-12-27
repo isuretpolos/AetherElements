@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {CaseService} from "../services/case.service";
-import {Case} from "../domains/Case";
+import {Component, OnInit} from '@angular/core';
+import {CaseService} from "../../services/case.service";
 
 @Component({
   selector: 'app-dashboard',
