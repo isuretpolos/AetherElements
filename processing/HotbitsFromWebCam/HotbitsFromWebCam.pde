@@ -113,7 +113,7 @@ void draw() {
           String textArray[] = new String[1];
           integerList += "]}";
           textArray[0] = integerList;
-          saveStrings("../../hotbits/hotbits_" + Calendar.getInstance().getTimeInMillis() + ".json", textArray);
+          saveStrings("../../database/hotbits/hotbits_" + Calendar.getInstance().getTimeInMillis() + ".json", textArray);
           
           integerList = "{\"integerList\":[";
         }

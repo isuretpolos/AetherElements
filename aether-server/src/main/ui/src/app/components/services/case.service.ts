@@ -20,9 +20,11 @@ export class CaseService {
 
   public getAllCases():Observable<Case[]> {
 
-    console.log(this.user);
-
     let headers = new HttpHeaders();
+
+    if (this.user == null) {
+      return new Observable<Case[]>();
+    }
 
     // @ts-ignore
     headers = headers.set('userName', this.user.username);

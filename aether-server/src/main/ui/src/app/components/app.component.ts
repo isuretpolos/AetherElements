@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     console.log('init AppComponent');
     if (this.caseService.user == null) {
-      //this.navigateToLoginPage();
+      this.navigateToLoginPage();
     }
   }
 

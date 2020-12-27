@@ -136,7 +136,7 @@ public class Database {
         return db.getRepository(Case.class).find(ObjectFilters.eq("name",caseName)).firstOrDefault();
     }
 
-    public void saveCase(User user, Case caseObject) {
+    public void saveOrUpdateCase(User user, Case caseObject) {
         Nitrite db = getDatabase(user);
 
         if (readCase(user, caseObject.getName()) != null) {

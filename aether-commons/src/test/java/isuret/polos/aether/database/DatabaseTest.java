@@ -89,7 +89,7 @@ public class DatabaseTest {
         session.getParagraphs().add(new Paragraph(result));
         myCase.getSessionList().add(session);
 
-        database.saveCase(user, myCase);
+        database.saveOrUpdateCase(user, myCase);
         Case caseFromDB = database.readCase(user, myCase.getName());
 
         System.out.println(caseFromDB);
@@ -97,7 +97,7 @@ public class DatabaseTest {
         user.setUsername("Another John");
         user.setPassword("987654321");
 
-        database.saveCase(user, myCase);
+        database.saveOrUpdateCase(user, myCase);
         caseFromDB = database.readCase(user, myCase.getName());
 
         Assert.assertNotNull(caseFromDB);
