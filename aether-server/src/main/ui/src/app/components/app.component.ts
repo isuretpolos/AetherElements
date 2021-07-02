@@ -4,6 +4,8 @@ import {CaseService} from "../services/case.service";
 import {CookieService} from "ngx-cookie-service";
 import {User} from "../domains/User";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NewCaseComponent} from "./new-case/new-case.component";
+import {Case} from "../domains/Case";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,9 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
   title = 'ui';
+  user: User | undefined;
 
   constructor(
     private router:Router,
@@ -25,10 +29,10 @@ export class AppComponent implements OnInit {
     console.log('init AppComponent');
 
     if (this.cookieService.get('userName') != null) {
-      let user:User = new User();
-      user.username = this.cookieService.get('userName');
-      user.password = this.cookieService.get('password');
-      this.caseService.user = user;
+      this.user = new User();
+      this.user.username = this.cookieService.get('userName');
+      this.user.password = this.cookieService.get('password');
+      this.caseService.user = this.user;
     }
 
     if (this.caseService.user == null) {
@@ -41,8 +45,21 @@ export class AppComponent implements OnInit {
   }
 
   switchAccount() {
-    this.caseService.user = null;
-    this.navigateToLoginPage();
+    this.caseService.user = undefined;
+    return false;
+  }
+
+  addNewCase() {
+    const modalRef = this.modalService.open(NewCaseComponent);
+
+    modalRef.closed.subscribe( e => {
+      if (e != 'Close click') return;
+
+      let caseObject:Case = new Case();
+      caseObject.name = modalRef.componentInstance.name.value;
+      caseObject.description = modalRef.componentInstance.description.value;
+      this.caseService.saveCase(caseObject).subscribe(result => console.log('done'));
+    });
     return false;
   }
 }

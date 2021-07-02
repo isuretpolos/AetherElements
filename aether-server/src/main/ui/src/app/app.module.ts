@@ -9,12 +9,16 @@ import { LoginComponent } from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
+import { NewCaseComponent } from './components/new-case/new-case.component';
+import { EditCaseComponent } from './components/edit-case/edit-case.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    NewCaseComponent,
+    EditCaseComponent
   ],
     imports: [
         BrowserModule,

@@ -11,15 +11,13 @@ import isuret.polos.aether.logs.Logger;
 import org.apache.commons.io.FileUtils;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.NitriteBuilder;
+import org.dizitart.no2.objects.Cursor;
 import org.dizitart.no2.objects.filters.ObjectFilters;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <h1>Database</h1>
@@ -128,7 +126,44 @@ public class Database {
 
     public List<Case> getAllCases(User user) {
         Nitrite db = getDatabase(user);
-        return db.getRepository(Case.class).find().toList();
+        List<Case> simpleCases = new ArrayList<>();
+        for (Case caseObject : db.getRepository(Case.class).find().toList()) {
+            simpleCases.add(caseObject.makeShallowCopy());
+        }
+
+        Collections.sort(simpleCases, new Comparator<Case>() {
+            @Override
+            public int compare(Case o1, Case o2) {
+                Calendar a1 = o1.getCreated();
+                Calendar a2 = o2.getCreated();
+
+                if (o1.getLastChange() != null) {
+                    a1 = o1.getLastChange();
+                }
+
+                if (o2.getLastChange() != null) {
+                    a2 = o2.getLastChange();
+                }
+
+                return a2.compareTo(a1);
+            }
+        });
+
+        return simpleCases;
+    }
+
+    public List<String> getAllCasesNames(User user) {
+        Nitrite db = getDatabase(user);
+        Cursor<Case> caseCursor = db.getRepository(Case.class).find();
+        List<String> caseList = new ArrayList<>();
+
+        for (Case caseObject : caseCursor) {
+            caseList.add(caseObject.getName());
+        }
+
+        Collections.sort(caseList);
+
+        return caseList;
     }
 
     public Case readCase(User user, String caseName) {
@@ -138,6 +173,10 @@ public class Database {
 
     public void saveOrUpdateCase(User user, Case caseObject) {
         Nitrite db = getDatabase(user);
+
+        if (caseObject.getUuid() == null) {
+            caseObject.setUuid(UUID.randomUUID());
+        }
 
         if (readCase(user, caseObject.getName()) != null) {
             db.getRepository(Case.class).update(caseObject);
@@ -161,6 +200,7 @@ public class Database {
 
     private Nitrite getDatabase(User user) {
 
+        // UserName is unique as you can see here
         if (databases.get(user.getUsername()) == null) {
 
             // Create a db

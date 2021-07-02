@@ -12,9 +12,12 @@
     <artifactId>aether-radionics-photography</artifactId>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <aether.version>1.0.1</aether.version>
+        <pi4j-core.version>1.2</pi4j-core.version>
+        <core.version>3.3.7</core.version>
+        <java.version>1.8</java.version>
     </properties>
 
     <dependencies>
@@ -22,6 +25,30 @@
             <groupId>isuret.polos</groupId>
             <artifactId>aether-commons</artifactId>
             <version>${aether.version}</version>
+        </dependency>
+
+        <!-- processing -->
+        <dependency>
+            <groupId>com.pi4j</groupId>
+            <artifactId>pi4j-core</artifactId>
+            <version>${pi4j-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.pi4j</groupId>
+            <artifactId>pi4j-device</artifactId>
+            <version>${pi4j-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.pi4j</groupId>
+            <artifactId>pi4j-gpio-extension</artifactId>
+            <version>${pi4j-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.processing</groupId>
+            <artifactId>core</artifactId>
+            <version>${core.version}</version>
         </dependency>
     </dependencies>
 

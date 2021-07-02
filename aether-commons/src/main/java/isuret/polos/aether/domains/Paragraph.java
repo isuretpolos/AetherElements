@@ -15,6 +15,7 @@ public class Paragraph {
 
     @Id
     private UUID uuid = UUID.randomUUID();
+    private String header;
     private Note note;
     private AnalysisResult analysisResult;
     private BroadCastData broadCastData;
@@ -29,6 +30,14 @@ public class Paragraph {
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
     }
 
     public Note getNote() {

@@ -50,7 +50,9 @@ public class Case {
 
     public Case makeShallowCopy() {
         Case copy = new Case();
+        copy.setUuid(this.getUuid());
         copy.setCreated(this.getCreated());
+        copy.setLastChange(this.getLastChange());
         copy.setName(this.getName());
         copy.setDescription(this.getDescription());
         return copy;

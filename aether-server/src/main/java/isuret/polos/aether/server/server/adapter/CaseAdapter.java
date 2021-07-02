@@ -22,7 +22,7 @@ public class CaseAdapter {
     }
 
     @GetMapping()
-    public List<Case> getAllCaseNames(@RequestHeader("userName") String userName, @RequestHeader("password") String password) {
+    public List<Case> getAllCases(@RequestHeader("userName") String userName, @RequestHeader("password") String password) {
 
         User user = getUser(userName, password);
 

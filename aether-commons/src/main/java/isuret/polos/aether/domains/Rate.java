@@ -1,9 +1,16 @@
 package isuret.polos.aether.domains;
 
+import org.dizitart.no2.objects.Id;
+
+import java.util.UUID;
+
 /**
  * The structural link is known in radionics as the rate, but it can be a name or a cryptic alphanumeric sequence
  */
 public class Rate {
+
+    @Id
+    private UUID uuid = UUID.randomUUID();
 
     /**
      * The energetic value aquired during TRNG / Hotbits analysis under the influence of the observers mind.

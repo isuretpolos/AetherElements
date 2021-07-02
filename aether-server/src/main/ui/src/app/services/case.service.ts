@@ -12,25 +12,33 @@ export class CaseService {
 
   public static url = `${environment.serverUrl}/case/`;
 
-  public user:User | null = null;
+  public user: User | undefined;
 
   constructor(
     private http:HttpClient
   ) { }
 
-  public getAllCases():Observable<Case[]> {
-
-    let headers = new HttpHeaders();
+  getAllCases():Observable<Case[]> {
 
     if (this.user == null) {
       return new Observable<Case[]>();
     }
 
+    return this.http.get<Case[]>(`${CaseService.url}`, {headers:this.getHeader()});
+  }
+
+  saveCase(caseObject: Case | undefined):Observable<void> {
+    return this.http.post<void>(`${CaseService.url}`, caseObject, {headers:this.getHeader()});
+  }
+
+  private getHeader():HttpHeaders {
+
+    let headers:HttpHeaders = new HttpHeaders();
     // @ts-ignore
     headers = headers.set('userName', this.user.username);
     // @ts-ignore
     headers = headers.set('password', this.user.password);
 
-    return this.http.get<Case[]>(`${CaseService.url}`, {headers:headers});
+    return headers;
   }
 }

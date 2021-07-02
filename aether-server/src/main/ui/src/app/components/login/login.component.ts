@@ -4,6 +4,7 @@ import {CaseService} from "../../services/case.service";
 import {User} from "../../domains/User";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
+import {Case} from "../../domains/Case";
 
 @Component({
   selector: 'app-login',
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
 
     this.caseService.getAllCases().subscribe(c => {
       console.log(c);
+      // login was successful, now set the cookies
       this.cookieService.set('userName', user.username);
       this.cookieService.set('password', user.password);
       this.navigateToLoginPage();
