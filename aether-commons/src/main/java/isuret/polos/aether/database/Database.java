@@ -166,9 +166,13 @@ public class Database {
         return caseList;
     }
 
-    public Case readCase(User user, String caseName) {
+    public Case readCase(User user, String id) {
         Nitrite db = getDatabase(user);
-        return db.getRepository(Case.class).find(ObjectFilters.eq("name",caseName)).firstOrDefault();
+        Case caseObject = db.getRepository(Case.class).find(ObjectFilters.eq("uuid",id)).firstOrDefault();
+        if (caseObject == null) {
+            caseObject = db.getRepository(Case.class).find(ObjectFilters.eq("name",id)).firstOrDefault();
+        }
+        return caseObject;
     }
 
     public void saveOrUpdateCase(User user, Case caseObject) {

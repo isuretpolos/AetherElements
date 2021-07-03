@@ -27,7 +27,16 @@ export class CaseService {
     return this.http.get<Case[]>(`${CaseService.url}`, {headers:this.getHeader()});
   }
 
-  saveCase(caseObject: Case | undefined):Observable<void> {
+  getCase(id: string | null):Observable<Case> {
+
+    if (this.user == null) {
+      return new Observable<Case>();
+    }
+    console.log(`${CaseService.url}${id}`);
+    return this.http.get<Case>(`${CaseService.url}${id}`, {headers:this.getHeader()});
+  }
+
+  saveCase(caseObject: Case | null):Observable<void> {
     return this.http.post<void>(`${CaseService.url}`, caseObject, {headers:this.getHeader()});
   }
 

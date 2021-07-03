@@ -1,1 +1,27 @@
-<h1>CASE {{uuid}}</h1>
+<div *ngIf="case">
+  <div class="alert alert-dark" role="alert">
+    <h1><span class="badge bg-secondary">CASE</span> {{case.name}}</h1>
+    <p><b>Created:</b> {{case.created | date}}<span *ngIf="case.lastChange"><br><b>Last change:</b> {{case.lastChange | date}}</span><br>
+      <b>Description:</b> {{case.description}}</p>
+  </div>
+  <div *ngFor="let session of case.sessionList">
+    <h3>{{session.intention}}</h3>
+    <p><b>Created:</b> {{session.created | date}}<br>
+      <b>Intent:</b> {{session.intention}}<br>
+      <b>Description:</b> {{session.description}}</p>
+  </div>
+  <div *ngIf="newSession" class="alert alert-primary" role="alert">
+    <div class="mb-3">
+      <div class="form-group mb-2">
+        <label for="intention" class="sr-only">Intention</label>
+        <input type="text" class="form-control" id="intention" placeholder="intention" [formControl]="intention">
+      </div>
+      <div class="mb-3">
+        <label for="description" class="sr-only">Description</label>
+        <input type="text" class="form-control" id="description" placeholder="description" [formControl]="description">
+      </div>
+      <button class="btn btn-primary mb-2" (click)="saveNewSession()">Save</button>
+    </div>
+  </div>
+  <button class="btn btn-primary" (click)="addSession()">ADD SESSION</button>
+</div>

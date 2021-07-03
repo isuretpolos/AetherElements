@@ -35,7 +35,7 @@ public class Case {
     private Calendar lastChange;
 
     /**
-     * A list of sessions / actions
+     * A list of sessions / actions / posts
      */
     private List<Session> sessionList = new ArrayList<>();
 
