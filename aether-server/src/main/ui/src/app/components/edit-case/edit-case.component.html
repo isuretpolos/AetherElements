@@ -2,13 +2,12 @@
   <div class="alert alert-dark" role="alert">
     <h1><span class="badge bg-secondary">CASE</span> {{case.name}}</h1>
     <p><b>Created:</b> {{case.created | date}}<span *ngIf="case.lastChange"><br><b>Last change:</b> {{case.lastChange | date}}</span><br>
-      <b>Description:</b> {{case.description}}</p>
+      <b>{{case.description}}</b></p>
   </div>
   <div *ngFor="let session of case.sessionList">
-    <h3>{{session.intention}}</h3>
-    <p><b>Created:</b> {{session.created | date}}<br>
-      <b>Intent:</b> {{session.intention}}<br>
-      <b>Description:</b> {{session.description}}</p>
+    <h3>{{session.intention}} <span class="badge bg-secondary text-light">{{session.created | date}}</span></h3>
+    <p style="white-space: pre">{{session.description}}</p>
+    <p *ngFor="let par of session.paragraphs">{{par.note}}</p>
   </div>
   <div *ngIf="newSession" class="alert alert-primary" role="alert">
     <div class="mb-3">
@@ -18,10 +17,19 @@
       </div>
       <div class="mb-3">
         <label for="description" class="sr-only">Description</label>
-        <input type="text" class="form-control" id="description" placeholder="description" [formControl]="description">
+        <textarea cols="5" class="form-control" id="description" placeholder="description" [formControl]="description"></textarea>
       </div>
-      <button class="btn btn-primary mb-2" (click)="saveNewSession()">Save</button>
+    </div>
+  </div>
+  <div *ngIf="editParagraph" class="alert alert-primary" role="alert">
+    <div class="mb-3">
+      <div class="mb-3">
+        <label for="note" class="sr-only">Note</label>
+        <textarea cols="5" class="form-control" id="note" placeholder="note" [formControl]="note"></textarea>
+      </div>
     </div>
   </div>
   <button class="btn btn-primary" (click)="addSession()">ADD SESSION</button>
+  <button class="btn btn-success marginLeft" (click)="addParagraph()">ADD NOTE</button>
+  <button class="btn btn-primary marginLeft" (click)="saveCase()">SAVE</button>
 </div>

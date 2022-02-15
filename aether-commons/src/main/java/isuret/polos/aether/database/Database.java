@@ -177,6 +177,7 @@ public class Database {
 
     public void saveOrUpdateCase(User user, Case caseObject) {
         Nitrite db = getDatabase(user);
+        caseObject.setLastChange(Calendar.getInstance());
 
         if (caseObject.getUuid() == null) {
             caseObject.setUuid(UUID.randomUUID());

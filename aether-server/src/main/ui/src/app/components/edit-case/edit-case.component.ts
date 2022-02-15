@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CaseService} from "../../services/case.service";
-import {Case, Session} from "../../domains/Case";
+import {Case, Paragraph, Session} from "../../domains/Case";
 import {ActivatedRoute} from "@angular/router";
 import {FormControl} from "@angular/forms";
 
@@ -16,6 +16,8 @@ export class EditCaseComponent implements OnInit {
   newSession:Session | null = null;
   intention = new FormControl('');
   description = new FormControl('');
+  note = new FormControl('');
+  editParagraph:Paragraph | null = null;
 
   constructor(private caseService:CaseService, private route: ActivatedRoute) { }
 
@@ -28,18 +30,30 @@ export class EditCaseComponent implements OnInit {
     this.newSession = new Session();
   }
 
-  saveNewSession() {
+  saveCase() {
 
     if (this.newSession != null && this.case != null) {
+
+      if (this.editParagraph != null) {
+        this.editParagraph.note = this.note.value;
+        this.newSession.paragraphs.push(this.editParagraph);
+        console.log(this.newSession)
+      }
 
       this.newSession.created = new Date();
       this.newSession.intention = this.intention.value;
       this.newSession.description = this.description.value;
       this.case.sessionList.push(this.newSession);
-
-      this.caseService.saveCase(this.case).subscribe( c => {
-        this.newSession = null;
-      });
     }
+
+    this.caseService.saveCase(this.case).subscribe( c => {
+      this.newSession = null;
+      this.editParagraph = null;
+    });
+  }
+
+  addParagraph() {
+    let par = new Paragraph();
+    this.editParagraph = par;
   }
 }
