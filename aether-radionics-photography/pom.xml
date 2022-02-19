@@ -6,7 +6,7 @@
         <artifactId>AetherElements</artifactId>
         <groupId>isuret.polos</groupId>
         <version>1.0.1</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
