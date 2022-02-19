@@ -2,6 +2,14 @@
 This module contains all classes and functions which are required by all other modules in AetherElements, 
 like domain model and database.
 
+```xml
+        <dependency>
+            <groupId>isuret.polos</groupId>
+            <artifactId>aether-commons</artifactId>
+            <version>${aether.version}</version>
+        </dependency>
+```
+
 ## Database
 I decided to use a very simple model with json, csv and text files, in order that you can add more modules of your own.
 So you can write your modules in any language, like for example python, and it still works with the same "database".
@@ -18,6 +26,7 @@ depends on the operating system and the hardware. Some computer systems have a r
 ecryption, which is also good enough for radionics. Instead the pseudo random generator in Java called just Random is
 only useful for simulations and teaching purposes.
 
+```java
     private Random getRandom() {
 
         try {
@@ -37,11 +46,13 @@ only useful for simulations and teaching purposes.
         simulationMode = true;
         return secureRandom;
     }
+```
 
 Naturally what you will see is that the Hotbit integer is used as a seed for the conventional Random object as a
 convinience for getting the different range of numbers or boolean values.
 
+```java
     public Integer nextInteger(int min, int max) {
         return getRandom().nextInt(max-min) + min;
     }
-
+```

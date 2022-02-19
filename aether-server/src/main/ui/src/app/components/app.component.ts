@@ -15,7 +15,8 @@ import {Case} from "../domains/Case";
 export class AppComponent implements OnInit {
 
   title = 'ui';
-  user: User | undefined;
+  user: User | null | undefined;
+  case: Case | null | undefined;
 
   constructor(
     private router:Router,
@@ -28,14 +29,17 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     console.log('init AppComponent');
 
+    this.caseService.user.subscribe( u => this.user = u);
+    this.caseService.case.subscribe( c => this.case = c);
+
     if (this.cookieService.get('userName') != null) {
       this.user = new User();
       this.user.username = this.cookieService.get('userName');
       this.user.password = this.cookieService.get('password');
-      this.caseService.user = this.user;
+      this.caseService.changeUser(this.user);
     }
 
-    if (this.caseService.user == null) {
+    if (this.user == null) {
       this.navigateToLoginPage();
     }
   }
@@ -45,7 +49,7 @@ export class AppComponent implements OnInit {
   }
 
   switchAccount() {
-    this.caseService.user = undefined;
+    this.user = undefined;
     return false;
   }
 

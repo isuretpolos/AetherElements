@@ -10,10 +10,13 @@
         <li class="nav-item active">
           <a class="nav-link" aria-current="page" href="#">Dashboard</a>
         </li>
+        <li class="nav-item" >
+          <a class="nav-link caseName" >{{case?.name}}</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="#" (click)="addNewCase()">New Case</a>
         </li>
-        <li class="nav-item">
+        <!--<li class="nav-item">
           <a class="nav-link" href="#">Profile</a>
         </li>
         <li class="nav-item">
@@ -26,7 +29,7 @@
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
-        </li>
+        </li>-->
         <li class="nav-item">
           <a class="nav-link" href="#">{{user?.username}}</a>
         </li>
@@ -37,7 +40,7 @@
 </nav>
 
 <div class="nav-scroller bg-white shadow-sm">
-  <nav class="nav nav-underline" aria-label="Secondary navigation">
+  <nav class="nav nav-underline bg-dark" aria-label="Secondary navigation">
     <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
     <a class="nav-link" href="#">
       Broadcasting Queue
@@ -45,12 +48,12 @@
       <span class="badge bg-light text-dark rounded-pill align-text-bottom">27</span>
     </a>
     <a class="nav-link" href="#">Analysis</a>
-    <a class="nav-link" href="#">Generate</a>
-    <a class="nav-link" href="#">Materia Medica</a>
+    <!--<a class="nav-link" href="#">Generate</a>
+    <a class="nav-link" href="#">Materia Medica</a>-->
   </nav>
 </div>
 
-<main class="container">
+<main class="container bg-dark">
   <div class="littleSpace">
     <router-outlet></router-outlet>
   </div>

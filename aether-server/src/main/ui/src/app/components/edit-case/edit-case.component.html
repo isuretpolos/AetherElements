@@ -1,11 +1,11 @@
 <div *ngIf="case">
-  <div class="alert alert-dark" role="alert">
+  <div class="alert alert-dark caseBox" role="alert">
     <h1><span class="badge bg-secondary">CASE</span> {{case.name}}</h1>
     <p><b>Created:</b> {{case.created | date}}<span *ngIf="case.lastChange"><br><b>Last change:</b> {{case.lastChange | date}}</span><br>
       <b>{{case.description}}</b></p>
   </div>
-  <div *ngFor="let session of case.sessionList">
-    <h3>{{session.intention}} <span class="badge bg-secondary text-light">{{session.created | date}}</span></h3>
+  <div *ngFor="let session of case.sessionList" class="alert alert-info postBox">
+    <h5><span class="badge bg-primary text-light">{{session.created | date}}</span> {{session.intention}}</h5>
     <p style="white-space: pre">{{session.description}}</p>
     <p *ngFor="let par of session.paragraphs">{{par.note}}</p>
   </div>
@@ -29,7 +29,9 @@
       </div>
     </div>
   </div>
-  <button class="btn btn-primary" (click)="addSession()">ADD SESSION</button>
-  <button class="btn btn-success marginLeft" (click)="addParagraph()">ADD NOTE</button>
+  <button *ngIf="!(newSession || editParagraph)" class="btn btn-primary" (click)="addSession()">ADD SESSION</button>
+  <button *ngIf="!(newSession || editParagraph)" class="btn btn-success marginLeft" (click)="addParagraph()">ADD NOTE</button>
   <button class="btn btn-primary marginLeft" (click)="saveCase()">SAVE</button>
+  <button *ngIf="newSession" class="btn btn-warning marginLeft" (click)="cancelNewSession()">CANCEL</button>
+  <button *ngIf="editParagraph" class="btn btn-warning marginLeft" (click)="cancelNewParagraph()">CANCEL</button>
 </div>

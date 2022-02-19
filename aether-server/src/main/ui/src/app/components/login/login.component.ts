@@ -4,7 +4,6 @@ import {CaseService} from "../../services/case.service";
 import {User} from "../../domains/User";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
-import {Case} from "../../domains/Case";
 
 @Component({
   selector: 'app-login',
@@ -32,7 +31,7 @@ export class LoginComponent implements OnInit {
     user.username = this.username.value;
     user.password = this.password.value;
 
-    this.caseService.user = user;
+    this.caseService.changeUser(user);
 
     this.caseService.getAllCases().subscribe(c => {
       console.log(c);

@@ -23,7 +23,10 @@ export class EditCaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.uuid = this.route.snapshot.paramMap.get('uuid');
-    this.caseService.getCase(this.uuid).subscribe( c => this.case = c);
+    this.caseService.case.subscribe( c => this.case = c );
+    this.caseService.getCase(this.uuid).subscribe( c => {
+      this.caseService.changeCase(c);
+    });
   }
 
   addSession() {
@@ -55,5 +58,13 @@ export class EditCaseComponent implements OnInit {
   addParagraph() {
     let par = new Paragraph();
     this.editParagraph = par;
+  }
+
+  cancelNewSession() {
+    this.newSession = null;
+  }
+
+  cancelNewParagraph() {
+    this.editParagraph = null;
   }
 }
