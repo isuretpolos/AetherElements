@@ -8,7 +8,6 @@
         <groupId>isuret.polos</groupId>
         <artifactId>AetherElements</artifactId>
         <version>${aether.version}</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>aether-commons</artifactId>

@@ -5,8 +5,7 @@
     <parent>
         <artifactId>AetherElements</artifactId>
         <groupId>isuret.polos</groupId>
-        <version>1.0.1</version>
-        <relativePath>../pom.xml</relativePath>
+        <version>${aether.version}</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
