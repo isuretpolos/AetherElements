@@ -10,7 +10,6 @@
     </parent>
     <groupId>isuret.polos.aether.server</groupId>
     <artifactId>server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>aether-server</name>
     <description>AetherOne Server</description>
 

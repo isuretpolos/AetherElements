@@ -8,6 +8,7 @@
         <groupId>isuret.polos</groupId>
         <artifactId>AetherElements</artifactId>
         <version>${aether.version}</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <artifactId>aether-commons</artifactId>

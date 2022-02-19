@@ -6,9 +6,10 @@
         <artifactId>AetherElements</artifactId>
         <groupId>isuret.polos</groupId>
         <version>1.0.1</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>aether-radionics-photography</artifactId>
 
     <properties>
