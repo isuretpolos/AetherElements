@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CaseService} from "../../services/case.service";
-import {Case, Paragraph, Session} from "../../domains/Case";
+import {Case, Note, Paragraph, Session} from "../../domains/Case";
 import {ActivatedRoute} from "@angular/router";
 import {FormControl} from "@angular/forms";
 
@@ -37,12 +37,7 @@ export class EditCaseComponent implements OnInit {
 
     if (this.newSession != null && this.case != null) {
 
-      if (this.editParagraph != null) {
-        this.editParagraph.note = this.note.value;
-        this.newSession.paragraphs.push(this.editParagraph);
-        console.log(this.newSession)
-      }
-
+      this.putParagraph();
       this.newSession.created = new Date();
       this.newSession.intention = this.intention.value;
       this.newSession.description = this.description.value;
@@ -55,9 +50,22 @@ export class EditCaseComponent implements OnInit {
     });
   }
 
+  private putParagraph() {
+    if (this.editParagraph != null && this.newSession != null) {
+      let note = new Note();
+      note.created = new Date();
+      note.text = this.note.value;
+      this.editParagraph.note = note;
+      this.newSession.paragraphs.push(this.editParagraph);
+      this.note.setValue('');
+      console.log(this.newSession)
+    }
+  }
+
   addParagraph() {
-    let par = new Paragraph();
-    this.editParagraph = par;
+
+    this.putParagraph();
+    this.editParagraph = new Paragraph();
   }
 
   cancelNewSession() {

@@ -2,3 +2,12 @@ div:hover {
   background-color: #daebff;
   cursor: pointer;
 }
+.caseBox {
+  background-color: darkslateblue;
+  color: white !important;
+}
+
+.caseBox:hover {
+  background-color: darkmagenta;
+  color: white !important;
+}
