@@ -21,8 +21,18 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: Upload Artifact after Action Run
+      run: |
+        mkdir -p release/
+        pwd;
+        ls -l;
+#        cp springboot/backend/build/libs/*SNAPSHOT.jar obook/beta/release/;
+#    - uses: actions/upload-artifact@master
+#      with:
+#        name: obook-1.0.0-SNAPSHOT
+#        path: obook/beta/release
 
-    - name: Publish to GitHub Packages Apache Maven
-      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+    #- name: Publish to GitHub Packages Apache Maven
+    #  run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+    #  env:
+    #    GITHUB_TOKEN: ${{ github.token }}
