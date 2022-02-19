@@ -26,11 +26,13 @@ jobs:
         mkdir -p release/
         pwd;
         ls -l;
-#        cp springboot/backend/build/libs/*SNAPSHOT.jar obook/beta/release/;
-#    - uses: actions/upload-artifact@master
-#      with:
-#        name: obook-1.0.0-SNAPSHOT
-#        path: obook/beta/release
+        cp aether-server/target/*.jar release/;
+        cp LICENSE release/;
+        cp README.md release/;
+    - uses: actions/upload-artifact@master
+      with:
+        name: aether-server
+        path: release
 
     #- name: Publish to GitHub Packages Apache Maven
     #  run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
