@@ -29,11 +29,14 @@ jobs:
     - name: Upload Artifact after Action Run
       run: |
         mkdir -p release/
-        pwd;
-        ls -l;
-        cp aether-server/target/*.jar release/;
+        cp aether-server/target/server***.jar release/aether-server-${{ steps.project.outputs.version }}.jar;
         cp LICENSE release/;
-        cp README.md release/;
+        cd release
+        echo "java jar aether-server-${{ steps.project.outputs.version }}.jar" >> start-server.bat
+        echo "java jar aether-server-${{ steps.project.outputs.version }}.jar" >> start-server.sh
+        chmod 755 start-server.sh
+        ls -l;
+        cd ..
     - uses: actions/upload-artifact@master
       with:
         name: aether-server-${{ steps.project.outputs.version }}
