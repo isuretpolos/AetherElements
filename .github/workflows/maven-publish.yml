@@ -33,10 +33,10 @@ jobs:
         cp aether-shell/target/aether-shell-*-dependencies.jar release/aether-shell-${{ steps.project.outputs.version }}.jar;
         cp LICENSE release/;
         cd release
-        echo "java jar aether-server-${{ steps.project.outputs.version }}.jar" >> start-server.bat
-        echo "java jar aether-server-${{ steps.project.outputs.version }}.jar" >> start-server.sh
-        echo "java jar aether-shell-${{ steps.project.outputs.version }}.jar" >> start-shell.bat
-        echo "java jar aether-shell-${{ steps.project.outputs.version }}.jar" >> start-shell.sh
+        echo "java -jar aether-server-${{ steps.project.outputs.version }}.jar" >> start-server.bat
+        echo "java -jar aether-server-${{ steps.project.outputs.version }}.jar" >> start-server.sh
+        echo "java -jar aether-shell-${{ steps.project.outputs.version }}.jar" >> start-shell.bat
+        echo "java -jar aether-shell-${{ steps.project.outputs.version }}.jar" >> start-shell.sh
         chmod 755 start-server.sh
         chmod 755 start-shell.sh
         ls -l;
