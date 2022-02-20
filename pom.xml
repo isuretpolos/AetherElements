@@ -13,12 +13,14 @@
         <aether.version>1.0.1</aether.version>
         <java.version>1.8</java.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
+        <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
     </properties>
 
     <modules>
         <module>aether-commons</module>
-        <module>aether-server</module>
         <module>aether-shell</module>
         <module>aether-radionics-photography</module>
+        <module>aether-server</module>
     </modules>
 </project>
